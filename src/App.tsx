@@ -1,26 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  return <nav>
+    <div className="nav-wrapper header">
+      <a href="#" className="brand-logo right">Уравнение состояния идеального газа</a>
+      <ul id="nav-mobile" className="left hide-on-med-and-down">
+        <li><a href="theory.html">Теория</a></li>
+        <li><a href="calculator.html">Калькулятор</a></li>
+        <li><a href=".html">Примеры задач</a></li>
+      </ul>
     </div>
-  );
+  </nav>
 }
 
 export default App;
