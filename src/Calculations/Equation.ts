@@ -12,7 +12,7 @@ interface IEquationArgs {
     n?: IEqVal
 }
 
-export function solveEquation(args: IEquationArgs, showError: (msg: string) => void): number {
+export function solveEquation(args: IEquationArgs, showError: (msg: string) => void): number | null {
     const r = 8.314
     let v, t, p, n
     switch (args.resVal.type) {

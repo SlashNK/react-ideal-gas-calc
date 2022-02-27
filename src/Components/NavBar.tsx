@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from 'react-router-dom'
 
-export const NavBar: React.FunctionComponent = () => (
+export const NavBar: React.FC = () => (
     <nav>
         <div className="nav-wrapper header">
             <a href="#" className="brand-logo right">Уравнение состояния идеального газа</a>
