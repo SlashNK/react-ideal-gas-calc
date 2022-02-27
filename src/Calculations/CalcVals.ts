@@ -6,25 +6,25 @@ export interface IEqVal {
     unit: vUnits|tUnits|pUnits|null,
 }
 export enum valType {
-    v,
-    t,
-    p,
-    n
+    v='Объем (V)',
+    t='Температура (T)',
+    p='Давление (P)',
+    n='Моль газа (n)'
 }
 export enum vUnits{
-    m,
-    l,
-    cm
+    m='м^3',
+    l='л',
+    cm='см^3'
 }
 export enum tUnits{
-    k ,
-    c,
-    f
+    k ='°K',
+    c='°C',
+    f='°F'
 }
 export enum pUnits{
-    p ,
-    a,
-    b
+    p='Па.' ,
+    a='атм.',
+    b='бар'
 }
 
 

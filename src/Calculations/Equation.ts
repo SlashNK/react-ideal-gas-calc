@@ -1,69 +1,81 @@
-import {valType} from "./CalcVals";
+import {IEqVal, pUnits, tUnits, valType, vUnits} from "./CalcVals";
+import {converterSI} from "./Converter";
 
 interface IEquationArgs {
-    resType: valType,
-    v?: number,
-    t?: number,
-    p?: number,
-    n?: number
-
+    resVal: {
+        type: valType,
+        unit: vUnits | tUnits | pUnits | null
+    }
+    v?: IEqVal
+    t?: IEqVal,
+    p?: IEqVal,
+    n?: IEqVal
 }
 
-export function solveEquation(args: IEquationArgs): number {
-    const {resType = valType.v, v = 0, t = 0, p = 0, n = 0} = args
+export function solveEquation(args: IEquationArgs, showError: (msg: string) => void): number {
     const r = 8.314
-    switch (resType) {
+    let v, t, p, n
+    switch (args.resVal.type) {
         case valType.v:
-            if (p <= 0) {
-                showMsgHolder('Давление должно быть положительным числом', '#alertHolder')
+            t = converterSI(args.t!)
+            p = converterSI(args.p!)
+            n = converterSI(args.n!)
+            if (p! <= 0) {
+                showError('Давление должно быть положительным числом')
                 return 0;
             }
             if (n <= 0) {
-                showMsgHolder('Количество моль должно быть положительным числом', '#alertHolder')
+                showError('Количество моль должно быть положительным числом')
                 return 0;
             }
-            return r * n * t / p
+            return converterSI({value: r * n * t / p, ...(args.resVal)}, true)
         case valType.t:
+            v = converterSI(args.v!)
+            p = converterSI(args.p!)
+            n = converterSI(args.n!)
             if (v <= 0) {
-                showMsgHolder('Объем должен быть положительным числом', '#alertHolder')
+                showError('Объем должен быть положительным числом')
                 return 0;
             }
             if (p <= 0) {
-                showMsgHolder('Давление должно быть положительным числом', '#alertHolder')
+                showError('Давление должно быть положительным числом')
                 return 0;
             }
             if (n <= 0) {
-                showMsgHolder('Количество моль должно быть положительным числом', '#alertHolder')
+                showError('Количество моль должно быть положительным числом')
                 return 0;
             }
-            return p * v / (r * n)
+            return converterSI({value: p * v / (r * n), ...(args.resVal)}, true)
         case valType.p:
+            v = converterSI(args.v!)
+            t = converterSI(args.t!)
+            n = converterSI(args.n!)
             if (v <= 0) {
-                showMsgHolder('Объем должен быть положительным числом', '#alertHolder')
+                showError('Объем должен быть положительным числом')
                 return 0;
             }
             if (n <= 0) {
-                showMsgHolder('Количество моль должно быть положительным числом', '#alertHolder')
+                showError('Количество моль должно быть положительным числом')
                 return 0;
             }
-            return r * n * t / v
+            return converterSI({value: r * n * t / v, ...(args.resVal)}, true)
         case valType.n:
+            v = converterSI(args.v!)
+            t = converterSI(args.t!)
+            p = converterSI(args.p!)
             if (v <= 0) {
-                showMsgHolder('Объем должен быть положительным числом', '#alertHolder')
+                showError('Объем должен быть положительным числом')
                 return 0;
             }
             if (p <= 0) {
-                showMsgHolder('Давление должно быть положительным числом', '#alertHolder')
+                showError('Давление должно быть положительным числом')
                 return 0;
             }
-            return t > 0 ? p * v / (r * t) : 0
-            return n
+            return converterSI({value: t > 0 ? p * v / (r * t) : 0, ...(args.resVal)}, true)
         default:
-            showMsgHolder('Ошибка на этапе вычислений', '#alertHolder')
+            showError('Ошибка на этапе вычислений')
             return 0;
     }
 }
 
-function showMsgHolder(msg: string, elm: string) {
-    console.log(msg)
-}
+

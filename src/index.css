@@ -2,7 +2,7 @@ body {
     background: #ede7f6;
     color: white;
     font-family: 'Montserrat', sans-serif;
-    font-size: 32px;
+    font-size: 16px;
 }
 .header {
     background-color: #7e57c2;
@@ -14,15 +14,36 @@ body {
     display: flex;
 }
 .calcPanel {
-    background-color: blueviolet;
+    background-color: #7e57c2;
     justify-content: center;
-    display: flex;
     border-radius: 20px;
-    width: 90%;
-    height: 200px;
     margin: 20px auto;
+    padding: 20px;
 }
 footer{
     background-color: #7e57c2;
 }
+.math {
+    font-family: serif;
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+}
+select{
+    display: block;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
 
