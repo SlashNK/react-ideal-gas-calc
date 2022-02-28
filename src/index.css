@@ -8,26 +8,34 @@ body {
     background-color: #7e57c2;
     font-family: 'Montserrat', sans-serif;
 }
-.header h1 {
-    font-size: 3rem;
-    margin: 0;
-    display: flex;
-}
-.calcPanel {
-    background-color: #7e57c2;
-    justify-content: center;
-    border-radius: 20px;
-    margin: 20px auto;
-    padding: 20px;
-}
-footer{
-    background-color: #7e57c2;
-}
 .math {
     font-family: serif;
     font-size: 2rem;
     font-style: italic;
     font-weight: bold;
+}
+.pageContent {
+    background-color: #7e57c2;
+    justify-content: center;
+    border-radius: 20px;
+    margin: 20px auto;
+    padding: 20px 30px 20px 30px;
+}
+.pageContent h1{
+    margin-top: 20px;
+    font-size: 2rem;
+}
+footer{
+    background-color: #7e57c2;
+    padding: 10px;
+}
+footer p{
+    margin: 0px 100px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+.calcLabel{
+    font-size: 1.2rem;
 }
 select{
     display: block;
@@ -45,5 +53,49 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-
-
+.inputBlock{
+    display: flex;
+}
+.inputBlock select{
+    width: 20%;
+}
+pageContent p{
+    font-size: 2rem;
+}
+.inputBlock input{
+    color: #ede7f6;
+}
+.resultBlock {
+}
+.resultBlock .inputBlock{
+    margin: 0 auto;
+    justify-content: space-between;
+}
+button{
+    background-color: #ede7f6;
+}
+.resType{
+    display: inline-flex;
+    line-height: 15px;
+    vertical-align: top;
+    width: 40%;
+    justify-content: space-between;
+}
+.resType select{
+    width: 50%;
+}
+.resContainer{
+    height: 15px;
+    margin-top: 40px;
+}
+.resContainer p{
+    margin: 0px;
+    padding-right: 20px;
+    justify-content: space-between;
+    display: inline-block;
+    line-height: 15px;
+    vertical-align: top;
+}
+.resValue{
+    font-size: 1.5rem;
+}

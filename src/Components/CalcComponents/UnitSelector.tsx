@@ -20,10 +20,9 @@ function getSelectedUnit(select:React.ChangeEvent<HTMLSelectElement>,type:valTyp
 }
 
 export const UnitSelect: React.FC<unitSelectorProps> = (props: unitSelectorProps) => {
-    //console.log(props.type)
     switch (props.type) {
         case valType.v:
-            return <select value={Object.keys(vUnits).find(value => (vUnits as Record<string, string>)[value]===props.unit)} onChange={(event) => {props.unitChange(props.type,getSelectedUnit(event,props.type))}}>
+            return <select  value={Object.keys(vUnits).find(value => (vUnits as Record<string, string>)[value]===props.unit)} onChange={(event) => {props.unitChange(props.type,getSelectedUnit(event,props.type))}}>
                 {Object.keys(vUnits).map((key, index) => (
                     <option key={key} value={key}>{(vUnits as Record<string, string>)[key]}</option>))}
             </select>

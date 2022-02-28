@@ -4,16 +4,23 @@ import {VInputBlock} from "../Components/CalcComponents/VInputBlock";
 import {ResultBlock} from "../Components/CalcComponents/ResultBlock";
 import {solveEquation} from "../Calculations/Equation";
 
+export interface ICalcProps{
+    resVal: IResType
+    v: IEqVal
+    t: IEqVal,
+    p: IEqVal,
+    n: IEqVal
+}
 interface IResType {type: valType,
     unit: vUnits | tUnits | pUnits | null
 }
 
-export const CalculatorPage: React.FC = () => {
+export const CalculatorPage: React.FC<ICalcProps> = (props :ICalcProps) => {
     function msgAlert(msg: string) {
         alert(msg)
     }
     function calculate():string {
-        const result:number|null = solveEquation({resVal:resType,n:nState,v:vState,p:pState,t:tState},()=>{})
+        const result:number|null = solveEquation({resVal:resType,n:nState,v:vState,p:pState,t:tState},msgAlert)
         return (result===null) ? '' :result!.toFixed(2)+' '+(resType.unit ===null ? 'моль' : resType.unit)
     }
 
@@ -95,6 +102,22 @@ export const CalculatorPage: React.FC = () => {
 
         }
     }
+    function getVal(type:valType) {
+        switch (type) {
+            case valType.v:
+                return vState.value
+                break;
+            case valType.t:
+                return tState.value
+                break;
+            case valType.p:
+                return pState.value
+                break;
+            case valType.n:
+                return nState.value;
+
+        }
+    }
 
     function changeResUnit(type:valType,unit: vUnits | tUnits | pUnits) {
         switch (type) {
@@ -112,37 +135,26 @@ export const CalculatorPage: React.FC = () => {
         }
     }
 
-    const [resType, setResType] = useState<IResType>({
-        type: valType.p,
-        unit: pUnits.a
-    })
-    const [vState, setVState] = useState<IEqVal>({type: valType.v,
-        unit: vUnits.m,
-        value:0})
-    const [tState, setTState] = useState<IEqVal>({type: valType.t,
-        unit: tUnits.k,
-        value:0})
-    const [pState, setPState] = useState<IEqVal>({type: valType.p,
-        unit: pUnits.p,
-        value:0})
-    const [nState, setNState] = useState<IEqVal>({type: valType.n,
-        unit: null,
-        value:0})
-    return (<div className='calcPanel'>
-
-        <select className='pink lighten-5' onChange={changeResType} value={Object.keys(valType).find(value => (valType as Record<string, string>)[value]===resType.type)}>
+    const [resType, setResType] = useState<IResType>(props.resVal)
+    const [vState, setVState] = useState<IEqVal>(props.v)
+    const [tState, setTState] = useState<IEqVal>(props.t)
+    const [pState, setPState] = useState<IEqVal>(props.p)
+    const [nState, setNState] = useState<IEqVal>(props.n)
+    return (<div className='pageContent'>
+        <h1>Калькулятор</h1>
+        <select onChange={changeResType} value={Object.keys(valType).find(value => (valType as Record<string, string>)[value]===resType.type)}>
             {Object.keys(valType).map((key) => {console.log(key);return (
                 <option key={valType[key as keyof typeof valType]} value={key} >{(valType as Record<string, string>)[key]}</option>)})}
         </select>
         {Object.keys(valType).map((key) => (
             (valType as Record<string, string>)[key] !== resType.type ?
-                <VInputBlock unit={getUnitVal(valType[key as keyof typeof valType])} key={key as valType} type={valType[key as keyof typeof valType]} onError={msgAlert} unitChange={changeUnit} valueChange={changeValue}/> :
+                <VInputBlock value={getVal(valType[key as keyof typeof valType])} unit={getUnitVal(valType[key as keyof typeof valType])} key={key as valType} type={valType[key as keyof typeof valType]} onError={msgAlert} unitChange={changeUnit} valueChange={changeValue}/> :
                 null))}
         <ResultBlock unit={resType.unit} type={resType.type} unitChange={changeResUnit} calculation={calculate} />
-        <p>{'' + resType.type + resType.unit}</p>
-        <p>{''+vState.type+vState.unit+vState.value}</p>
-        <p>{''+tState.type+tState.unit+tState.value}</p>
-        <p>{''+pState.type+pState.unit+pState.value}</p>
-        <p>{''+nState.type+nState.unit+nState.value}</p>
+        {/*<p>{'' + resType.type + resType.unit}</p>*/}
+        {/*<p>{''+vState.type+vState.unit+vState.value}</p>*/}
+        {/*<p>{''+tState.type+tState.unit+tState.value}</p>*/}
+        {/*<p>{''+pState.type+pState.unit+pState.value}</p>*/}
+        {/*<p>{''+nState.type+nState.unit+nState.value}</p>*/}
     </div>)
 }

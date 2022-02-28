@@ -14,12 +14,16 @@ interface ResultBlockProps {
 export const ResultBlock: React.FC<ResultBlockProps> = (props: ResultBlockProps) => {
     const [resVal, setResVal] = useState('')
     return (
-        <div style={{borderStyle: 'solid'}}>
-            <p>Тип результата:</p>
-            <UnitSelect unit={props.unit} type={props.type} unitChange={props.unitChange}/>
-         <button id="calcButton" onClick={()=>setResVal(props.calculation)}>Произвести вычисления</button>
-            <p>Результат:</p>
-            <p>{resVal}</p>
+        <div className='resultBlock'>
+            <div className='inputBlock'>
+                <button className = "waves-effect waves-light btn deep-purple accent-2"onClick={()=>setResVal(props.calculation)}>Произвести вычисления</button>
+
+                <div className='resType'><p>Тип результата:</p><UnitSelect unit={props.unit} type={props.type} unitChange={props.unitChange}/></div>
+
+            </div>
+
+            <div className='resContainer '><p className='calcLabel'>Результат:</p>
+                <p className='resValue' style={{fontSize:'2rem'}}>{resVal}</p></div>
             </div>
     )
     }

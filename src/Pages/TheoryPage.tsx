@@ -2,7 +2,7 @@ import React from "react";
 
 export const TheoryPage: React.FC= ()=> {
     return (<>
-        <div id="theory" className='calcPanel'>
+        <div id="theory" className='pageContent'>
             <h2>Теория</h2>
             <div className="panelBody">
                 <p><b>Уравнение состояния идеального газа</b> (иногда <b>уравнение Менделеева — Клапейрона</b>) —
